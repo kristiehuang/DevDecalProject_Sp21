@@ -86,7 +86,7 @@ contract MerchToken is ERC721, Ownable {
             forSale: _forSale
         });
 
-        //*****TO:DO****** once a token is minted, tell the contract by changing one variable
+        //*****TO DO:****** once a token is minted, tell the contract by changing one variable
         
 
         emit MerchToken(msg.sender, index);

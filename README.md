@@ -42,11 +42,11 @@ that this command spits out. **YOU WILL NEED THIS TO TEST THE FRONT END. PLS COP
 the command `test` will run through our test cases we set up for you and compile the contracts as you go. Since there is not much coding, you could try
 implementing everything first, then debugging (not reccomended in a real project). 
 
-once you are finished you can run `compile` and `migrate` to deploy to the network! This means 
+once you are finished you can run `compile` and `migrate` to deploy to the network! 
 
 ## TASK1: Minting Tokens
 ### part A: Implementing Psuedorandom property assignment
-oski wants the tags to be decided in the following manner: get the current block number, add it to the user's address and pass it through SHA256.
+oski wants the tags to be decided in the following manner: get the current block timestamp, add it to the user's address and pass it through SHA256.
 Then, pass the result through keccak256. finally, make sure that the result is a 256 bit unsigned integer. take this result and mod it by 10 to find the `_merchType`
 and mod it by 5 to find the `_tag`
 
