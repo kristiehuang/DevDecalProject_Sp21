@@ -64,12 +64,12 @@ contract MerchToken is ERC721, Ownable {
 
         // ***********TO DO:*************  Generate psedorandom numbers
         // by running blocktimestamp+address -> blackbox hashing function -> determine from last digit of result
-        bytes32 hash1 = 
-        bytes32 hash2 = 
+        bytes32 hash1 = sha256(abi.encode(block.timestamp + msg.sender)); // will this work lol
+        bytes32 hash2 = keccak256(abi.encode(hash1)); // why do we have to wrap everything in abi.encode before hashing
         uint256 result = uint256(hash2);
 
-        uint256 _merchType = 
-        uint256 _tag = 
+        uint256 _merchType = result % 10;
+        uint256 _tag = result % 5;
 
         require(_tag <= 4, "Failed random check, ID too large");
         require(_merchType <= 9, "Failed random check, tagID too large");
@@ -87,7 +87,7 @@ contract MerchToken is ERC721, Ownable {
         });
 
         //*****TO DO:****** once a token is minted, tell the contract by changing one variable
-        
+        index++; // can we use this syntax or does it have to be +=1
 
         emit MerchToken(msg.sender, index);
     }
