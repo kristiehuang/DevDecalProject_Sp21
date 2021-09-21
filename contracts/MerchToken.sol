@@ -62,9 +62,8 @@ contract MerchToken is ERC721, Ownable {
         require(_nameBytes.length >= NAME_MIN_LENGTH, "Title is too short");
         require(_nameBytes.length <= NAME_MAX_LENGTH, "Title is too long");
 
-        // ***********TO DO:*************  Generate psedorandom numbers
-        // by running blocktimestamp+address -> blackbox hashing function -> determine from last digit of result
-        bytes32 hash1 = sha256(abi.encode(block.timestamp + msg.sender)); // will this work lol
+        // ***********TO DO:*************  Generate pseudorandom numbers
+        bytes32 hash1 = sha256(abi.encode(block.timestamp + uint256(msg.sender))); // will this work lol
         bytes32 hash2 = keccak256(abi.encode(hash1)); // why do we have to wrap everything in abi.encode before hashing
         uint256 result = uint256(hash2);
 
@@ -87,7 +86,7 @@ contract MerchToken is ERC721, Ownable {
         });
 
         //*****TO DO:****** once a token is minted, tell the contract by changing one variable
-        index++; // can we use this syntax or does it have to be +=1
+        index += 1;
 
         emit MerchToken(msg.sender, index);
     }
@@ -140,6 +139,11 @@ contract MerchToken is ERC721, Ownable {
     //******TO DO************
     // Changes the price that must be paid to buy a particular token
     function changePrice(uint256 _tokenId, uint256 _newPrice) public {
+        require(_newPrice != 0, "New price must be non-zero.");
+        require(_tokenId < index, "Token must exist in contract");
+        require(ownerOf(_tokenId) == msg.sender);
+
+        tokenInfos[_tokenId].price = _newPrice;
 
     }
 
